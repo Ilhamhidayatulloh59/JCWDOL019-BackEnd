@@ -16,8 +16,8 @@ export class UserRouter {
     this.router.post("/", this.userController.createUser);
 
     this.router.get("/:id", this.userController.getUserId);
+    this.router.patch("/:id", this.userController.updateUser);
     this.router.delete("/:id", this.userController.deleteUser);
-    // .. add another router here
   }
 
   getRouter(): Router {

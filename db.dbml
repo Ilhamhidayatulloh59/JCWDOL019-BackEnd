@@ -1,0 +1,46 @@
+Table users {
+  id int [pk, increment]
+  username varchar
+  email varchar [unique]
+  password varchar
+  avatar varchar
+  is_verified boolean [default: false]
+  created_at timestamp [default: `now()`]
+}
+
+Table blogs {
+  id int [pk, increment]
+  title varchar
+  thumbnail varchar
+  category enum('sport', 'health', 'food')
+  content text
+  user_id int [ref: > users.id]
+  cretaed_at timestamp [default: `now()`]
+  updated_at timestamp [default: `updatedAt()`]
+}
+
+Table email_verifications {
+  id int [pk, increment]
+  user_id int [ref: > users.id]
+  token varchar
+  expired_at timestamp
+  cretaed_at timestamp [default: `now()`]
+}
+
+Table blog_comments {
+  id int [pk, increment]
+  user_id int [ref: > users.id]
+  blog_id int [ref: > blogs.id]
+  content varchar
+  cretaed_at timestamp [default: `now()`]
+}
+
+Table blog_likes {
+  user_id int [ref: > users.id]
+  blog_id int [ref: > blogs.id]
+  cretaed_at timestamp [default: `now()`]
+
+  primary key (blog_id, user_id)
+}
+
+

@@ -13,6 +13,11 @@ export class ExpenseV2Router {
 
   private initializeRoutes() {
     this.router.get("/", this.expenseV2Controller.getExpense);
+    this.router.post("/", this.expenseV2Controller.createExpense);
+
+    this.router.get("/:id", this.expenseV2Controller.getExpenseId);
+    this.router.patch("/:id", this.expenseV2Controller.editExpense);
+    this.router.delete("/:id", this.expenseV2Controller.deleteExpense);
   }
 
   getRouter(): Router {

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { BlogController } from "../controllers/blog.controller";
+import { verifyToken } from "../middlewares/verify";
 
 export class BlogRouter {
   private router: Router;
@@ -13,7 +14,7 @@ export class BlogRouter {
 
   private initializeRoutes() {
     this.router.get("/", this.blogController.getBlogs);
-    this.router.post("/", this.blogController.createBlog);
+    this.router.post("/", verifyToken, this.blogController.createBlog);
   }
 
   getRouter(): Router {

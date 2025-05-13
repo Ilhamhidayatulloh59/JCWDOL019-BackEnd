@@ -4,7 +4,8 @@ import prisma from "../prisma";
 export class BlogController {
   async createBlog(req: Request, res: Response) {
     try {
-      const { title, thumbnail, category, content, userId } = req.body;
+      const userId = res.locals?.user?.id;
+      const { title, thumbnail, category, content } = req.body;
       await prisma.blog.create({
         data: { title, thumbnail, category, content, userId },
       });

@@ -43,7 +43,7 @@ export class UserController {
 
   async editUser(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = res.locals.user;
       await prisma.user.update({
         where: { id: +id },
         data: req.body,
@@ -65,6 +65,21 @@ export class UserController {
       res.status(200).send({
         message: "User deleted",
       });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  }
+
+  async getBlogUser(req: Request, res: Response) {
+    try {
+      const blogs = await prisma.blog.findMany({
+        include: {
+          user: true,
+        },
+        where: { userId: res.locals.user?.id },
+      });
+      res.status(200).send({ message: "Data Blogs", blogs });
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

@@ -141,6 +141,14 @@ exports.Prisma.BlogScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.EmailVerificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  token: 'token',
+  expiredAt: 'expiredAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -164,7 +172,8 @@ exports.CategoryBlog = exports.$Enums.CategoryBlog = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Blog: 'Blog'
+  Blog: 'Blog',
+  EmailVerification: 'EmailVerification'
 };
 
 /**

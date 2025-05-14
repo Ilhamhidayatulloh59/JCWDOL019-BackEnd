@@ -2,11 +2,13 @@ import exprees, { Application, Request, Response } from "express";
 import { UserRouter } from "./routers/user.router";
 import { BlogRouter } from "./routers/blog.router";
 import { AuthRouter } from "./routers/auth.router";
+import cors from "cors";
 
 const PORT: number = 8000;
 
 const app: Application = exprees();
 app.use(exprees.json());
+app.use(cors());
 
 app.get("/api", (req: Request, res: Response) => {
   res.status(200).send({ message: "Welcome to my API" });

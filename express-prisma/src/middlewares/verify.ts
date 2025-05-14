@@ -24,7 +24,34 @@ export const verifyToken = (
     }
 
     res.locals.user = payload;
-    next()
+    next();
   });
-  
+};
+
+export const verifyTokenVerication = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    res.status(401).send({ message: "Unauthorize!" });
+    return;
+  }
+
+  verify(token, process.env.SECRET_KEY_VERIFY!, (err, payload) => {
+    if (err) {
+      if (err instanceof TokenExpiredError) {
+        res.status(401).send({ message: "Token Expired" });
+      } else {
+        res.status(401).send({ message: "Invalid token" });
+      }
+      return;
+    }
+
+    res.locals.user = payload;
+    res.locals.token = token;
+    next();
+  });
 };

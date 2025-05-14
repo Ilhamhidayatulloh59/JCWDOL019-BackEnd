@@ -32,6 +32,14 @@ model Blog {
   user      User         @relation(fields: [userId], references: [id])
 }
 
+model EmailVerification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  token     String
+  expiredAt DateTime
+  createdAt DateTime @default(now())
+}
+
 enum CategoryBlog {
   SPORT
   HEALTH

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { BlogController } from "../controllers/blog.controller";
 import { verifyToken } from "../middlewares/verify";
+import { uploader } from "../helpers/uploader";
 
 export class BlogRouter {
   private router: Router;
@@ -14,7 +15,20 @@ export class BlogRouter {
 
   private initializeRoutes() {
     this.router.get("/", this.blogController.getBlogs);
-    this.router.post("/", verifyToken, this.blogController.createBlog);
+    this.router.post(
+      "/",
+      uploader("diskStorage", "blog-").single("thumbnail"),
+      verifyToken,
+      this.blogController.createBlog
+    );
+    this.router.post(
+      "/cloud",
+      uploader("memoryStorage", "blog-").single("thumbnail"),
+      verifyToken,
+      this.blogController.createBlogCloud
+    );
+
+    this.router.get("/:id", this.blogController.getBlogId);
   }
 
   getRouter(): Router {

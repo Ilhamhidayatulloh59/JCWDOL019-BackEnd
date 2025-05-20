@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import cron from "node-cron";
 import { PostRouter } from "./routers/post.router";
+import { UserRouter } from "./routers/user.router";
 
 const PORT: number = 8000;
 
@@ -13,6 +14,9 @@ app.get("/api", (req: Request, res: Response) => {
 const postRouter = new PostRouter();
 app.use("/api/posts", postRouter.getRouter());
 
+const userRouter = new UserRouter();
+app.use("/api/users", userRouter.getRouter());
+
 // scheduler
 // cron.schedule("0 10 * * *", () => {
 //   console.log("Hello World");
@@ -21,3 +25,5 @@ app.use("/api/posts", postRouter.getRouter());
 app.listen(PORT, () => {
   console.log(`Server running on : http://localhost:${PORT}/api`);
 });
+
+export default app;

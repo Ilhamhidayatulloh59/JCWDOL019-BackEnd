@@ -8,7 +8,7 @@ export class PostController {
       const redisData = await redis.get("post");
 
       if (redisData) {
-        res.status(200).send({ data: JSON.parse(redisData) });
+        res.status(200).send(JSON.parse(redisData));
         return;
       }
 
@@ -18,9 +18,7 @@ export class PostController {
 
       await redis.setex("post", 60, JSON.stringify(data));
 
-      res.status(200).send({
-        data,
-      });
+      res.status(200).send(data);
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

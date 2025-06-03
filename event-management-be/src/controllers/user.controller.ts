@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../prisma";
-import generateReferralCode from "src/helpers/refCode";
+import generateReferralCode from "../helpers/refCode";
 
 export class UserController {
   async createUser(req: Request, res: Response) {

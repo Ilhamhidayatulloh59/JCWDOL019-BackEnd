@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const prisma_1 = __importDefault(require("../prisma"));
-const refCode_1 = __importDefault(require("src/helpers/refCode"));
+const refCode_1 = __importDefault(require("../helpers/refCode"));
 class UserController {
     createUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

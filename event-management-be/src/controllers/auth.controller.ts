@@ -6,7 +6,7 @@ import path from "path";
 import fs from "fs";
 import handlebars from "handlebars";
 import { tranporter } from "../helpers/mailer";
-import generateReferralCode from "src/helpers/refCode";
+import generateReferralCode from "../helpers/refCode";
 
 export class AuthController {
   async register(req: Request, res: Response) {

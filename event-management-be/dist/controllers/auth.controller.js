@@ -20,7 +20,7 @@ const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const handlebars_1 = __importDefault(require("handlebars"));
 const mailer_1 = require("../helpers/mailer");
-const refCode_1 = __importDefault(require("src/helpers/refCode"));
+const refCode_1 = __importDefault(require("../helpers/refCode"));
 class AuthController {
     register(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

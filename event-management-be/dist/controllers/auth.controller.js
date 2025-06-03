@@ -20,16 +20,13 @@ const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const handlebars_1 = __importDefault(require("handlebars"));
 const mailer_1 = require("../helpers/mailer");
-const referral_codes_1 = __importDefault(require("referral-codes"));
+const refCode_1 = __importDefault(require("src/helpers/refCode"));
 class AuthController {
     register(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { name, email, password, referralCode: inputReferralCode, } = req.body;
-                const generatedReferralCode = referral_codes_1.default.generate({
-                    length: 8,
-                    count: 1,
-                });
+                const generatedReferralCode = (0, refCode_1.default)();
                 const salt = yield (0, bcrypt_1.genSalt)(10);
                 const hashPass = yield (0, bcrypt_1.hash)(password, salt);
                 const referredByUser = inputReferralCode
@@ -42,7 +39,7 @@ class AuthController {
                         name,
                         email,
                         password: hashPass,
-                        referralCode: generatedReferralCode[0],
+                        referralCode: generatedReferralCode,
                         referredBy: (referredByUser === null || referredByUser === void 0 ? void 0 : referredByUser.referralCode) || null,
                     },
                 });

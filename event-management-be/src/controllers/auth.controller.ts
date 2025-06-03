@@ -6,7 +6,7 @@ import path from "path";
 import fs from "fs";
 import handlebars from "handlebars";
 import { tranporter } from "../helpers/mailer";
-import referralCodes from "referral-codes";
+import generateReferralCode from "src/helpers/refCode";
 
 export class AuthController {
   async register(req: Request, res: Response) {
@@ -18,10 +18,7 @@ export class AuthController {
         referralCode: inputReferralCode,
       } = req.body;
 
-      const generatedReferralCode = referralCodes.generate({
-        length: 8,
-        count: 1,
-      });
+      const generatedReferralCode = generateReferralCode();
       const salt = await genSalt(10);
       const hashPass = await hash(password, salt);
 
@@ -36,7 +33,7 @@ export class AuthController {
           name,
           email,
           password: hashPass,
-          referralCode: generatedReferralCode[0],
+          referralCode: generatedReferralCode,
           referredBy: referredByUser?.referralCode || null,
         },
       });
